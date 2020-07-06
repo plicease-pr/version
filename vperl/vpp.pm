@@ -253,11 +253,12 @@ sub prescan_version {
 
     my $d = $s;
 
-    if ($qv && isDIGIT($d)) {
-	goto dotted_decimal_version;
-    }
+    if (($qv && isDIGIT($d)) || $d eq 'v') { # explicit v-string
 
-    if ($d eq 'v') { # explicit v-string
+        if ($qv && isDIGIT($d)) {
+	    goto dotted_decimal_version;
+        }
+
 	$d++;
 	if (isDIGIT($d)) {
 	    $qv = TRUE;
